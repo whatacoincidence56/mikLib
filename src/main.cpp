@@ -72,7 +72,6 @@ while (in_motion) {
         //12 volts is also the max voltage you can give to the motors
 
         drive_motor_encoders(18, 12);
-        
         chassis.drive_distance(18, {.max_voltage = 12});
     }
 }
