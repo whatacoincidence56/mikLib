@@ -18,6 +18,7 @@ bool force_calibrate_inertial = false;
 // of a failed calibration.
 static const float MINIMUN_INERTIAL_CALIBRATION_ERROR = .05;
 
+
 Chassis chassis(
     // Drivetrain motors (the left and right motor groups of the drivetrain are based of looking at the robot from the bottom))
     mik::motor_group({
@@ -26,8 +27,7 @@ Chassis chassis(
 		mik::motor(PORT6, true, blue_6_1, "left_back_motor")
     }),
     mik::motor_group({
-		mik::motor(PORT5, false, blue_6_1, "right_front_motor"), 
-		mik::motor(PORT9, true, blue_6_1, "right_middle_motor"), 
+`	z		mik::motor(PORT9, true, blue_6_1, "right_middle_motor"), 
 		mik::motor(PORT10, false, blue_6_1, "right_back_motor")
     }),
 
@@ -52,23 +52,15 @@ Assembly assembly(
 	
 	mik::motor(PORT16, false, blue_6_1, "lower/middle_intake"),// Change as needed
 	mik::motor(PORT17, false, green_18_1, "upper_intake"),// Change as needed
-	vex::rotation(PORT11),
-	mik::piston(PORT_A)
+	mik::piston(PORT_A), // long_piston_for_macthloader // Change as needed
+	mik::piston(PORT_B)  // doinker_piston // Change as needed
 );
 
 /** Allows UI to display all motor values */
 void log_motors() {
-    config_add_motors({
-		// Add all mik motor groups in here
-		chassis.left_drive, 
-		chassis.right_drive, 
-		assembly.lift_arm_motors
-    }, 
-	{
-		// Add all mik motors in here
-		assembly.intake_motor
-    }
-  );
+    config_add_motors({chassis.left_drive, chassis.right_drive, lower_middle_intake_motor, upper_intake_motor});
+
+	return 0;
 }
 
 void calibrate_inertial(void) {
@@ -187,4 +179,6 @@ void enable_user_control(void) {
 
 bool control_disabled(void) {
   	return user_control_disabled;
+	
+	return 0;
 }
