@@ -2,6 +2,7 @@
 
 using namespace vex;
 using namespace mik;
+int main() {return 0; }
 
 void default_constants(void) {
     chassis.set_control_constants(5, 10, 1.019, 5, 10, 1.019);
@@ -18,14 +19,14 @@ void default_constants(void) {
     chassis.set_swing_exit_conditions(1.25, 75, 3000);
 }
 
-void odom_constants(void) {
-    default_constants();
-    chassis.heading_max_voltage = 10;
-    chassis.drive_max_voltage = 8;
-    chassis.drive_settle_error = 3;
-    chassis.boomerang_lead = .5;
-    chassis.boomerang_setback = 2;    
-}
+// //void odom_constants(void) {
+//     default_constants();
+//     chassis.heading_max_voltage = 10;
+//     chassis.drive_max_voltage = 8;
+//     chassis.drive_settle_error = 3;
+//     chassis.boomerang_lead = .5;
+//     chassis.boomerang_setback = 2;    
+
 
 std::string template_auto(bool calibrate, auto_variation var, bool get_name) {
     /* The first variation will be this auto */

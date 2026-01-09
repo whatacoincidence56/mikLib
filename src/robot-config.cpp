@@ -27,26 +27,27 @@ Chassis chassis(
 		mik::motor(PORT6, true, blue_6_1, "left_back_motor")
     }),
     mik::motor_group({
-`	z		mik::motor(PORT9, true, blue_6_1, "right_middle_motor"), 
+		mik::motor(PORT9, true, blue_6_1, "right_middle_motor"), 
 		mik::motor(PORT10, false, blue_6_1, "right_back_motor")
     }),
 
-    PORT18, // Inertia sensor port (the ports will be changed, "18" is just a placeholder)
-    360,    // Inertial scale, value that reads after turning robot a full 360
+)
+//     PORT18, // Inertia sensor port (the ports will be changed, "18" is just a placeholder)
+//     360,    // Inertial scale, value that reads after turning robot a full 360
 
-    PORT19, // Forward Tracker Port
-    -2,     // Forward Tracker wheel diameter in inches (negative flips direction)
-    0,      // Forward Tracker center distance in inches (a positive distance corresponds to a tracker on the right side of the robot, negative is left)
+//     PORT19, // Forward Tracker Port
+//     -2,     // Forward Tracker wheel diameter in inches (negative flips direction)
+//     0,      // Forward Tracker center distance in inches (a positive distance corresponds to a tracker on the right side of the robot, negative is left)
 
-    PORT15,  // Sideways tracker port
-    2,       // Sideways tracker wheel diameter in inches (negative flips direction)
-    0.3,     // Sideways tracker center distance in inches (positive distance is behind the center of the robot, negative is in front)
+//     PORT15,  // Sideways tracker port
+//     2,       // Sideways tracker wheel diameter in inches (negative flips direction)
+//     0.3,     // Sideways tracker center distance in inches (positive distance is behind the center of the robot, negative is in front)
 
-    mik::distance_reset({
-		// A distance sensor that is mounted on the front of the robot and is offset by 5 inches to the right and 3.5 inches forward from the tracking center 
-		//mik::distance(PORT17, rear_sensor, 5, 3.5)
-    })
-);
+//     mik::distance_reset({
+// 		// A distance sensor that is mounted on the front of the robot and is offset by 5 inches to the right and 3.5 inches forward from the tracking center 
+// 		//mik::distance(PORT17, rear_sensor, 5, 3.5)
+//     })
+// );
 
 Assembly assembly(
 	
@@ -58,10 +59,13 @@ Assembly assembly(
 
 /** Allows UI to display all motor values */
 void log_motors() {
-    config_add_motors({chassis.left_drive, chassis.right_drive, lower_middle_intake_motor, upper_intake_motor});
-
-	return 0;
+    config_add_motors(
+		{chassis.left_drive, chassis.right_drive },
+	{assembly.lower_middle_intake_motor, assembly.upper_intake_motor}
+	);
 }
+
+	
 
 void calibrate_inertial(void) {
 	calibrating = true;
@@ -131,7 +135,7 @@ static void handle_disconnected_devices() {
 static void reset_screens() {
 	Brain.Screen.clearScreen();
 	Controller.Screen.setCursor(1, 1);
-	Controller.Screen.print("                                  ");
+	Controller.Screen.print("                                  
 	Brain.Screen.setCursor(1,1);
 	vex::task::sleep(50);
 	Brain.Screen.clearScreen();

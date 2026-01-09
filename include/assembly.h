@@ -12,7 +12,7 @@ public:
         mik::motor lower_middle_intake_motor,
         mik::motor upper_intake_motor, 
         mik::piston matchhloader_piston,
-        mik::piston doinker_piston,
+        mik::piston doinker_piston
     );
     
     void init();
