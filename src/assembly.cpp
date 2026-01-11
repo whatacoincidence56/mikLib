@@ -1,7 +1,6 @@
 #include "vex.h"
 
 using namespace vex;
-int main() {return 0; } // Placeholder to prevent linker errors
 
 // Pass in the devices we want to use
 Assembly::Assembly(

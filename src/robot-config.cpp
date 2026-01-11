@@ -1,4 +1,5 @@
 #include "vex.h"
+#include "robot-config.h"
 
 using namespace vex;
 using namespace mik;
@@ -18,43 +19,41 @@ bool force_calibrate_inertial = false;
 // of a failed calibration.
 static const float MINIMUN_INERTIAL_CALIBRATION_ERROR = .05;
 
+mik::motor_group leftDrive({
+    mik::motor(PORT1, false, "left1"),
+    mik::motor(PORT2, false, "left2"),
+    mik::motor(PORT3, false, "left3")
+});
+
+mik::motor_group rightDrive({ 
+    mik::motor(PORT11, false, "right11"),
+    mik::motor(PORT12, false, "right12"),
+    mik::motor(PORT13, false, "right13")
+});
+
+mik::distance_reset distReset({});
 
 Chassis chassis(
-    // Drivetrain motors (the left and right motor groups of the drivetrain are based of looking at the robot from the bottom))
-    mik::motor_group({
-		mik::motor(PORT4, false, blue_6_1, "left_front_motor"), 
-		mik::motor(PORT8, true, blue_6_1, "left_middle_motor"), 
-		mik::motor(PORT6, true, blue_6_1, "left_back_motor")
-    }),
-    mik::motor_group({
-		mik::motor(PORT9, true, blue_6_1, "right_middle_motor"), 
-		mik::motor(PORT10, false, blue_6_1, "right_back_motor")
-    }),
+    leftDrive,                      // mik::motor_group
+    rightDrive,                     // mik::motor_group
+    PORT18,                         // inertial port
+    360.0,                          // inertial scale
+    PORT19,                         // forward tracker port
+    2.75,                           // forward tracker diameter
+    5.0,                            // forward tracker center distance
+    PORT20,                         // sideways tracker port
+    2.75,                           // sideways tracker diameter
+    5.0,                            // sideways tracker center distance
+   distReset
 
-)
-//     PORT18, // Inertia sensor port (the ports will be changed, "18" is just a placeholder)
-//     360,    // Inertial scale, value that reads after turning robot a full 360
+);
 
-//     PORT19, // Forward Tracker Port
-//     -2,     // Forward Tracker wheel diameter in inches (negative flips direction)
-//     0,      // Forward Tracker center distance in inches (a positive distance corresponds to a tracker on the right side of the robot, negative is left)
-
-//     PORT15,  // Sideways tracker port
-//     2,       // Sideways tracker wheel diameter in inches (negative flips direction)
-//     0.3,     // Sideways tracker center distance in inches (positive distance is behind the center of the robot, negative is in front)
-
-//     mik::distance_reset({
-// 		// A distance sensor that is mounted on the front of the robot and is offset by 5 inches to the right and 3.5 inches forward from the tracking center 
-// 		//mik::distance(PORT17, rear_sensor, 5, 3.5)
-//     })
-// );
 
 Assembly assembly(
-	
-	mik::motor(PORT16, false, blue_6_1, "lower/middle_intake"),// Change as needed
-	mik::motor(PORT17, false, green_18_1, "upper_intake"),// Change as needed
-	mik::piston(PORT_A), // long_piston_for_macthloader // Change as needed
-	mik::piston(PORT_B)  // doinker_piston // Change as needed
+    mik::motor(PORT16, false, blue_6_1, "lower/middle_intake"),
+    mik::motor(PORT17, false, green_18_1, "upper_intake"),
+    mik::piston(PORT_A),
+    mik::piston(PORT_B)
 );
 
 /** Allows UI to display all motor values */
@@ -135,7 +134,7 @@ static void handle_disconnected_devices() {
 static void reset_screens() {
 	Brain.Screen.clearScreen();
 	Controller.Screen.setCursor(1, 1);
-	Controller.Screen.print("                                  
+	Controller.Screen.print("     ");                           
 	Brain.Screen.setCursor(1,1);
 	vex::task::sleep(50);
 	Brain.Screen.clearScreen();
@@ -186,3 +185,5 @@ bool control_disabled(void) {
 	
 	return 0;
 }
+
+	

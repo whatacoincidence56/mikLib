@@ -1,5 +1,6 @@
 #include "vex.h"
 
+
 using namespace vex;
 using namespace mik;
 
@@ -66,31 +67,26 @@ void drive_motor_encoders(float inches_to_travel, float voltage) {
 
 
 
-    if (drivetrain_position_in_inches >= inches_to_travel) 
-        in_motion = false;
-        chassis.left_drive.stop(hold);
-        chassis.right_drive.stop(hold);
-    
+
     
     
      
 
 
 
-    task::sleep(20);
 
     //these lines of code are purely for PID tuning purposes
 
-    void drivetrain_movement_test() {
-        assembly.lower_middle_intake_motor.spin(fwd, 12, volt);
+void drivetrain_movement_test() {
+    assembly.lower_middle_intake_motor.spin(fwd, 12, volt);
 
         // Drive forward 18 inches at 6 volts is what this function call does (you can change the parameters as needed)
         //12 volts is also the max voltage you can give to the motors
 
-        drive_motor_encoders(18, 12);
-        chassis.drive_distance(18, {.max_voltage = 12});
-    }
+    drive_motor_encoders(18, 12);
+    chassis.drive_distance(18, {.max_voltage = 12});
 }
+
 
 int main() {
     Competition.autonomous(auton);
