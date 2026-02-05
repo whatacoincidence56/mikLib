@@ -79,6 +79,9 @@ std::string blue_left_winpoint(bool calibrate, auto_variation var, bool get_name
     if (get_name) { return "blue left winpoint"; }
     if (calibrate) {
         chassis.set_coordinates(0, 0, 0);
+        chassis.move.to.point(15.8,92.4,50.5)
+        chassis.turn.to.point()
+
 
         return "";
     }
