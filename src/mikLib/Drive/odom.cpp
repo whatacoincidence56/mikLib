@@ -25,9 +25,6 @@ void odom::update_position(float ForwardTracker_position, float SidewaysTracker_
     float local_X_position;
     float local_Y_position;
 
-    // All of the following lines are pretty well documented in 5225A's Into to Position Tracking 
-    // Document at http://thepilons.ca/wp-content/uploads/2018/10/Tracking.pdf 
-
     if (orientation_delta_rad == 0) {
         local_X_position = Sideways_delta;
         local_Y_position = Forward_delta;

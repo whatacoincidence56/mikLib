@@ -44,7 +44,7 @@ void user_control(void) {
     }
 }
 const float wheel_diameter_inch = 3.25; // Diameter of the wheels used
-const float drivetrain_gear_ratio = 36.0 / 60.0; // Gear ratio of the drivetrain (output speed / input speed)
+const float drivetrain_gear_ratio = 36.0 / 48.0; // Gear ratio of the drivetrain (output speed / input speed)
 
 bool in_motion = true;
 
@@ -62,29 +62,6 @@ void drive_motor_encoders(float inches_to_travel, float voltage) {
         chassis.right_drive.stop(hold);
       }
    }  
-}
-
-
-
-
-
-    
-    
-     
-
-
-
-
-    //these lines of code are purely for PID tuning purposes
-
-void drivetrain_movement_test() {
-    assembly.lower_middle_intake_motor.spin(fwd, 12, volt);
-
-        // Drive forward 18 inches at 6 volts is what this function call does (you can change the parameters as needed)
-        //12 volts is also the max voltage you can give to the motors
-
-    drive_motor_encoders(18, 12);
-    chassis.drive_distance(18, {.max_voltage = 12});
 }
 
 

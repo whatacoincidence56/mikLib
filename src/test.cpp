@@ -8,7 +8,10 @@ using namespace mik;
 
 void relative_mode_constants() {
   	default_constants();
-	chassis.set_drive_constants(10, 0, 0, 0, 0);
+	chassis.set_drive_constants(10, 1.5, 0, 10, 0);
+	chassis.set_heading_constants(6, .4, 0, 1, 0);
+	chassis.set_turn_constants(12, .437, .0125, 3.686, 15);
+	chassis.set_swing_constants(12, .437, .0295, 3.486, 15);
 }
 
 void odom_mode_constants() {

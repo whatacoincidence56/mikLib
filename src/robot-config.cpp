@@ -41,26 +41,29 @@ Chassis chassis(
     PORT19,                         // forward tracker port
     2.75,                           // forward tracker diameter
     5.0,                            // forward tracker center distance
-    PORT20,                         // sideways tracker port
-    2.75,                           // sideways tracker diameter
-    5.0,                            // sideways tracker center distance
-   distReset
+	-1,                             // sideways tracker port (set to -1 if not using                           
+	0,                              // sideways tracker diameter (set to 0 if not using)
+	0,                              // sideways tracker center distance (set to 0 if not using)
+	distReset                       // distance reset object	
 
 );
 
 
 Assembly assembly(
-    mik::motor(PORT16, false, blue_6_1, "lower/middle_intake"),
-    mik::motor(PORT17, false, green_18_1, "upper_intake"),
+    mik::motor(PORT16, false,  vex::gearSetting::ratio6_1, "intake"),
+    mik::motor(PORT17, false, vex::gearSetting::ratio36_1, "lever"),
     mik::piston(PORT_A),
-    mik::piston(PORT_B)
+    mik::piston(PORT_B),	
+	mik::piston(PORT_C),
+	mik::piston(PORT_D),
+	mik::piston(PORT_D)
 );
 
 /** Allows UI to display all motor values */
 void log_motors() {
     config_add_motors(
 		{chassis.left_drive, chassis.right_drive },
-	{assembly.lower_middle_intake_motor, assembly.upper_intake_motor}
+	{assembly.lever_motor, assembly.intake_motor}
 	);
 }
 
